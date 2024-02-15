@@ -84,5 +84,22 @@ await Bun.write(`${outputFolder}/subtitles.srt`, subtitles);
 // convert subtitles from srt to ass format
 await $`ffmpeg -i ${outputFolder}/subtitles.srt -y ${outputFolder}/subtitles.ass`;
 
+// TODO: add those styles to ass file
+const customAssStyles = `Style: Default,Arial Rounded MT Bold,20,&Hffffff,&Hffffff,&H0,&H0,0,0,0,0,100,100,0,0,1,1,2,5,10,10,10,1`;
+const assFile = await Bun.file(`${outputFolder}/subtitles.ass`);
+const assText = await assFile.text();
+
+const newAssText = assText
+  .split("\n")
+  .map((line) => {
+    if (line.startsWith("Style: ")) {
+      return customAssStyles;
+    }
+    return line;
+  })
+  .join("\n");
+
+await Bun.write(`${outputFolder}/styled-subtitles.ass`, newAssText);
+
 // add subtitles to video
-await $`ffmpeg -i ${outputFolder}/with-audio.mp4 -vf "subtitles=${outputFolder}/subtitles.ass" -c:a copy ${outputFolder}/result.mp4`;
+await $`ffmpeg -i ${outputFolder}/with-audio.mp4 -vf "subtitles=${outputFolder}/styled-subtitles.ass" -c:a copy ${outputFolder}/result.mp4`;

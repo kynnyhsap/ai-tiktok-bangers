@@ -4,16 +4,22 @@ import { srt } from "./subtitles";
 import { QUOTE_TEMPLATES } from "./quote-templates";
 import { textToImage } from "./text-to-image";
 
-const text = QUOTE_TEMPLATES.whenHeSays({
-  mid: "you're beautiful",
-  him: "Rainbow Rowell",
-  banger: `She never looked nice. She looked like art, and art wasn't supposed to look nice; it was supposed to make you feel something.`,
+// const text = QUOTE_TEMPLATES.whenHeSays({
+//   mid: "you're beautiful",
+//   him: "Rainbow Rowell",
+//   banger: `She never looked nice. She looked like art, and art wasn't supposed to look nice; it was supposed to make you feel something.`,
+// });
+const text = QUOTE_TEMPLATES.youSay({
+  mid: "i love you",
+  him: "Howie Day",
+  banger: `Meeting you was a coincidence, becoming friends was a choice, but falling in love with you was beyond my control.`,
 });
+
 // TODO: also generate prompts using LLM
 const imagePrompts = [
-  "A painting of passionate woman, pensil, sketch",
+  "A painting of yung woman, pensil, sketch",
   "A painting of charming woman in a dress, oil, renesanse",
-  // "A painting of loving woman, abstract",
+  "A painting of passionate and loving woman, abstract",
   "A painting of man and woman hugging, caligraphy, japanese",
 ];
 
@@ -30,7 +36,7 @@ await Bun.write(`${outputFolder}/speech.mp3`, speech);
 const SILENCE_DURATION = 7;
 await $`ffmpeg -i ${outputFolder}/speech.mp3 -af "apad=pad_dur=${SILENCE_DURATION}" -y ${outputFolder}/speech-padded.mp3`;
 
-const bakgroundMusicPath = "./music/idea15.mp3";
+const bakgroundMusicPath = "./music/lalecon.mp3";
 
 // mix speech with background music
 await $`ffmpeg -i ${outputFolder}/speech-padded.mp3 -i ${bakgroundMusicPath} -filter_complex "amix=inputs=2:duration=shortest" -c:a libmp3lame -y ${outputFolder}/audio.mp3`;

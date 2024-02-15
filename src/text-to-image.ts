@@ -5,12 +5,9 @@ const WIDTH = 768;
 const SEED = 0;
 const STEPS = 40;
 
-const engineId = "stable-diffusion-xl-1024-v1-0"; // 'stable-diffusion-v1-6'
+const engineId = "stable-diffusion-xl-1024-v1-0";
 
-export async function textToImage(
-  prompt: string,
-  negativePrompt = "blurry, bad"
-) {
+export async function textToImage(prompt: string) {
   const body = JSON.stringify({
     steps: STEPS,
     width: WIDTH,
@@ -22,10 +19,6 @@ export async function textToImage(
       {
         text: prompt,
         weight: 1,
-      },
-      {
-        text: negativePrompt,
-        weight: -1,
       },
     ],
   });
@@ -59,10 +52,3 @@ export async function textToImage(
 
   return await fetch(`data:image/png;base64,${data.artifacts[0].base64}`);
 }
-
-const prompt =
-  "expansive landscape rolling greens with gargantuan yggdrasil, intricate world-spanning roots towering under a blue alien sky, masterful, ghibli";
-
-const image = await textToImage(prompt);
-await Bun.write("./tmp/stable-image.png", image);
-await $`ffmpeg -i ./tmp/stable-image.png -vf scale=576:1024 ./tmp/stable-image-scaled.png`;

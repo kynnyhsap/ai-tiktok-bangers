@@ -44,9 +44,3 @@ async function imageToVideoSync(image: any) {
     await wait(5000);
   }
 }
-
-const img = await Bun.file("./tmp/stable-image-scaled.png");
-
-const video = await imageToVideoSync(img);
-
-await Bun.write("./tmp/stable-video.mp4", video);

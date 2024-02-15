@@ -1,6 +1,6 @@
 import { $ } from "bun";
-import { tts } from "./tts";
-import { srt } from "./subs";
+import { tts } from "./text-to-speech";
+import { srt } from "./subtitles";
 import { QUOTE_TEMPLATES } from "./quote-templates";
 
 const folderId = Date.now();

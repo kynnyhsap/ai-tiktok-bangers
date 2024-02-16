@@ -12,6 +12,7 @@
     "typescript": "^5.0.0"
   },
   "dependencies": {
-    "assemblyai": "^4.2.2"
+    "assemblyai": "^4.2.2",
+    "openai": "^4.28.0"
   }
 }

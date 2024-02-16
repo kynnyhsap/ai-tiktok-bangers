@@ -23,11 +23,12 @@ export async function srt(audio: string, originalText: string) {
 
   const unformattedSrt = batched
     .map(({ start, end, text }, index) => {
-      return `${index + 1}\n${ms2srt(start)} --> ${ms2srt(end)}\n${text}`;
+      return `${index + 1}\n${ms2srt(start)} --> ${ms2srt(
+        end
+      )}\n${text.toUpperCase()}`;
     })
     .join("\n\n");
 
-  // TODO: ask LLM to format srt subtitles.
   const formattedSrt = unformattedSrt;
 
   console.log({ formattedSrt });

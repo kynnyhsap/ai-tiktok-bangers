@@ -4,8 +4,6 @@ const MODEL_ID = "eleven_multilingual_v2";
 const VOICE_ID = "pNInz6obpgDQGcFmaJgB"; // Adam
 
 export async function tts(text: string) {
-  console.log({ text });
-
   const response = await fetch(
     `${ELEVEN_LABS_API_URI}/text-to-speech/${VOICE_ID}`,
     {
@@ -26,6 +24,8 @@ export async function tts(text: string) {
       }),
     }
   );
+
+  console.log("Generated speech for this text:\n\n\n", text);
 
   return response;
 }

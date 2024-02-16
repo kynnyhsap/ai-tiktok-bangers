@@ -17,7 +17,7 @@ export async function srt(audio: string, originalText: string) {
     format_text: false,
   });
 
-  console.log({ transcript });
+  console.log("Generated transcirpt: ", transcript);
 
   const batched = combineWordsInBatches(transcript.words ?? []);
 
@@ -31,7 +31,7 @@ export async function srt(audio: string, originalText: string) {
 
   const formattedSrt = unformattedSrt;
 
-  console.log({ formattedSrt });
+  console.log("Formatted SRT subs", formattedSrt);
 
   return formattedSrt;
 }

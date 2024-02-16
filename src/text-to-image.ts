@@ -40,11 +40,11 @@ export async function textToImage(prompt: string) {
     }
   );
 
-  console.log("response", response);
-
   if (!response.ok) {
     throw new Error(`Non-200 response: ${await response.text()}`);
   }
+
+  console.log(`Genearated image for promt "${prompt}".`);
 
   const data = (await response.json()) as {
     artifacts: {
